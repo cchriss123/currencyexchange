@@ -10,6 +10,7 @@ import org.json.JSONObject;
 public class ExchangeRateProvider {
 
     public static double getExchangeRate(String fromCode, String toCode) throws IOException {
+        
         String apiKey = "nk74nn32lem10m8cl4tr808i3s7mm5ro35566liuo28ulltbn0b19";
         String urlString = "https://anyapi.io/api/v1/exchange/rates?base=" + fromCode.toUpperCase() + "&apiKey=" + apiKey;
         URL url = new URL(urlString);
@@ -32,7 +33,8 @@ public class ExchangeRateProvider {
             JSONObject rates = jsonObject.getJSONObject("rates");
             double rate = rates.getDouble(toCode.toUpperCase());
             return 1.0 / rate;
-        } else {
+        } 
+        else {
             System.out.println("Error: Unable to fetch data from the API. Response code: " + responseCode);
             return 0;
         }

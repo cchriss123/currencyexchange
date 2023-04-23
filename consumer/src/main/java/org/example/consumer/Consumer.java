@@ -1,17 +1,11 @@
 package org.example.consumer;
 
 import org.example.service.CurrencyExchangeService;
-import org.example.service.Greeting;
 import org.example.service.annotation.CurrencyCode;
-import org.example.service.annotation.Language;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
-import java.util.stream.Collectors;
 
 
 public class Consumer {
@@ -45,13 +39,10 @@ public class Consumer {
         CurrencyExchangeService exchangeService = currencyServices.get(toCurrency);
         double exchangeRate = exchangeService.getExchangeRate(fromCurrency, toCurrency);
         System.out.println("Exchange rate from " + fromCurrency + " to " + toCurrency + ": " + String.format("%.4f", exchangeRate));
+
+
     }
 }
-
-
-
-
-
 
 
 
