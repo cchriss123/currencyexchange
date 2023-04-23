@@ -6,7 +6,9 @@ import java.io.IOException;
 
 public class UsdExchange implements CurrencyExchangeService {
 
-    String currencyCode = "USD";
+    public String getSupportedCurrency() {
+        return "USD";
+    }
 
     @Override
     public double getExchangeRate(String currencyCode, String toCurrencyCode) throws IOException {

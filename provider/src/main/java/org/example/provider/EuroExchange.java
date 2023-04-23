@@ -6,7 +6,10 @@ import java.io.IOException;
 
 public class EuroExchange implements CurrencyExchangeService {
 
-    String currencyCode = "EUR";
+    @Override
+    public String getSupportedCurrency() {
+        return "EUR";
+    }
 
     @Override
     public double getExchangeRate(String currencyCode, String toCurrencyCode) throws IOException {

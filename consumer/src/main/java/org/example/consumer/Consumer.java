@@ -32,57 +32,29 @@ public class Consumer {
                 System.out.println("Invalid input. Please enter a valid currency code (USD or EUR).");
             }
         }
+        final String finalToCurrency = toCurrency;
 
-        Optional<CurrencyExchangeService> exchangeServiceOptional = loader.stream()
+
+        loader.stream()
                 .map(ServiceLoader.Provider::get)
-                .findFirst();
-
-        if (exchangeServiceOptional.isPresent()) {
-            CurrencyExchangeService exchangeService = exchangeServiceOptional.get();
-            try {
-                double exchangeRate = exchangeService.getExchangeRate(fromCurrency, toCurrency);
-                System.out.println("Exchange rate from " + fromCurrency + " to " + toCurrency + ": " + String.format("%.4f", exchangeRate));
-            }
-            catch (IOException e) {
-                System.out.println("Error fetching exchange rate: " + e.getMessage());
-            }
-        }
-        else {
-            System.out.println("No currency exchange service implementation found.");
-        }
+                .filter(service -> finalToCurrency.equals(service.getSupportedCurrency()))
+                .findFirst()
+                .ifPresentOrElse(
+                        exchangeService -> {
+                            try {
+                                double exchangeRate = exchangeService.getExchangeRate(fromCurrency, finalToCurrency);
+                                System.out.println("Exchange rate from " + fromCurrency + " to " + finalToCurrency + ": " + String.format("%.4f", exchangeRate));
+                            } catch (IOException e) {
+                                System.out.println("Error fetching exchange rate: " + e.getMessage());
+                            }
+                        },
+                        () -> System.out.println("No currency exchange service implementation found for the requested currency.")
+                );
 
 
 
 
 
-
-
-//        ServiceLoader<CurrencyExchangeService> loader = ServiceLoader.load(CurrencyExchangeService.class);
-//        String fromCurrency = "SEK";
-
-
-
-
-//        ServiceLoader<Greeting> loader = ServiceLoader.load(Greeting.class);
-//        for (var greeting : loader) {
-//            System.out.println(greeting.sayHello());
-//        }
-//
-//
-//     loader.findFirst().ifPresent(greeting -> System.out.println(greeting.sayHello()));
-//
-//
-//
-//        System.out.println("Enter the currency code to convert SEK to (e.g., USD or EUR):");
-//        String toCurrency = "USD"; //scanner.nextLine().trim().toUpperCase();
-//
-//        for (CurrencyExchangeService exchangeService : loader) {
-//            try {
-//                double exchangeRate = exchangeService.getExchangeRate(fromCurrency, toCurrency);
-//                System.out.printf("Exchange rate from %s to %s: %.2f%n", fromCurrency, toCurrency, exchangeRate);
-//            } catch (IOException e) {
-//                System.out.println("Error fetching exchange rate: " + e.getMessage());
-//            }
        }
 
 
