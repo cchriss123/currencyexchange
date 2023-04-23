@@ -2,6 +2,7 @@ package org.example.consumer;
 
 import org.example.service.CurrencyExchangeService;
 import org.example.service.Greeting;
+import org.example.service.annotation.CurrencyCode;
 import org.example.service.annotation.Language;
 
 import java.io.BufferedReader;
@@ -18,44 +19,37 @@ public class Consumer {
     public static void main(String[] args) throws InvocationTargetException, IllegalAccessException, IOException, NoSuchMethodException, InstantiationException {
 
 
-        Set<String> supportedCurrencies = new HashSet<>(Arrays.asList("USD", "EUR"));
-        ServiceLoader<CurrencyExchangeService> loader = ServiceLoader.load(CurrencyExchangeService.class);
-        String fromCurrency = "SEK";
-
         Scanner scanner = new Scanner(System.in);
+        String fromCurrency = "SEK";
+        Map<String, CurrencyExchangeService> currencyServices = new HashMap<>();
+        ServiceLoader<CurrencyExchangeService> loader = ServiceLoader.load(CurrencyExchangeService.class);
+
+
+        for (CurrencyExchangeService service : loader) {
+            CurrencyCode annotation = service.getClass().getAnnotation(CurrencyCode.class);
+            if (annotation != null) {
+                currencyServices.put(annotation.value(), service);
+            }
+        }
+
         System.out.println("Enter the currency code to see currency prices from SEK (USD or EUR):");
 
         String toCurrency = "";
-        while (!supportedCurrencies.contains(toCurrency)) {
+        while (!currencyServices.containsKey(toCurrency)) {
             toCurrency = scanner.nextLine().trim().toUpperCase();
-            if (!supportedCurrencies.contains(toCurrency)) {
+            if (!currencyServices.containsKey(toCurrency)) {
                 System.out.println("Invalid input. Please enter a valid currency code (USD or EUR).");
             }
         }
-        final String finalToCurrency = toCurrency;
 
-
-        loader.stream()
-                .map(ServiceLoader.Provider::get)
-                .filter(service -> finalToCurrency.equals(service.getSupportedCurrency()))
-                .findFirst()
-                .ifPresentOrElse(
-                        exchangeService -> {
-                            try {
-                                double exchangeRate = exchangeService.getExchangeRate(fromCurrency, finalToCurrency);
-                                System.out.println("Exchange rate from " + fromCurrency + " to " + finalToCurrency + ": " + String.format("%.4f", exchangeRate));
-                            } catch (IOException e) {
-                                System.out.println("Error fetching exchange rate: " + e.getMessage());
-                            }
-                        },
-                        () -> System.out.println("No currency exchange service implementation found for the requested currency.")
-                );
+        CurrencyExchangeService exchangeService = currencyServices.get(toCurrency);
+        double exchangeRate = exchangeService.getExchangeRate(fromCurrency, toCurrency);
+        System.out.println("Exchange rate from " + fromCurrency + " to " + toCurrency + ": " + String.format("%.4f", exchangeRate));
+    }
+}
 
 
 
-
-
-       }
 
 
 
@@ -101,4 +95,4 @@ public class Consumer {
 //            return null;
 //        }
 //    }
-}
+//}

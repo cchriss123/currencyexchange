@@ -10,8 +10,6 @@ public class EnglishGreeting implements Greeting {
     }
 
 
-
-
     @Override
     public String sayHello() {
         return "Hello";
