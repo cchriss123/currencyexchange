@@ -33,7 +33,8 @@ public class Consumer {
         }
 
 
-        System.out.println("Enter the currency code to see currency prices for " + fromCurrency + " (USD or EUR):");
+        System.out.println("Enter the currency code to see currency prices for " + fromCurrency);
+        System.out.println(loaderMap.keySet());
         String toCurrency = "";
         while (!loaderMap.containsKey(toCurrency)) {
             toCurrency = scanner.nextLine().trim().toUpperCase();

@@ -1,5 +1,4 @@
-import org.example.provider.currencyexchange.EuroExchange;
-import org.example.provider.currencyexchange.UsdExchange;
+import org.example.provider.currencyexchange.*;
 import org.example.service.CurrencyExchangeService;
 
 
@@ -10,5 +9,5 @@ module org.example.provider {
     requires org.example.service;
     requires org.json;
 
-    provides CurrencyExchangeService with UsdExchange, EuroExchange;
+    provides CurrencyExchangeService with UsdExchange, EuroExchange, DkkExchange, JpyExchange, NokExchange, GbpExchange;
 }
