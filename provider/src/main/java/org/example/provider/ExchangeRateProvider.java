@@ -31,6 +31,7 @@ public class ExchangeRateProvider {
 
             JSONObject jsonObject = new JSONObject(response.toString());
             JSONObject rates = jsonObject.getJSONObject("rates");
+            //System.out.println(rates.toString());
             double rate = rates.getDouble(toCode.toUpperCase());
             return 1.0 / rate;
         } 
