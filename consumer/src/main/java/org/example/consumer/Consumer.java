@@ -11,9 +11,6 @@ public class Consumer {
     public static void main(String[] args) throws IOException {
 
         Scanner scanner = new Scanner(System.in);
-        List<String> currencyCodes = new ArrayList<>(Arrays.asList("CHF", "MXN", "ZAR", "INR", "CNY", "THB", "AUD", "ILS", "KRW", "JPY", "PLN", "GBP",
-                "IDR", "HUF", "PHP", "TRY", "ISK", "HKD", "EUR", "DKK", "USD", "CAD", "MYR", "BGN", "NOK", "RON", "SGD", "CZK", "SEK", "NZD", "BRL"));
-
         Map<String, CurrencyExchangeService> loaderMap = new HashMap<>();
         ServiceLoader<CurrencyExchangeService> loader = ServiceLoader.load(CurrencyExchangeService.class);
 
@@ -23,10 +20,10 @@ public class Consumer {
 
         System.out.println("\nWelcome to my currency price service!\n");
 
-        System.out.println("Pick your currency code.");
-        System.out.println(currencyCodes);
+        System.out.println("Enter your currency code.");
+        System.out.println(loaderMap.keySet());
         String fromCurrency = scanner.nextLine().trim().toUpperCase();
-        if(!currencyCodes.contains(fromCurrency)) {
+        if(!loaderMap.containsKey(fromCurrency)) {
             System.out.println(fromCurrency + " is not available. Currency code is set to SEK.");
             fromCurrency = "SEK.";
         }

@@ -9,5 +9,6 @@ module org.example.provider {
     requires org.example.service;
     requires org.json;
 
-    provides CurrencyExchangeService with UsdExchange, EuroExchange, DkkExchange, JpyExchange, NokExchange, GbpExchange;
+    provides CurrencyExchangeService with UsdExchange, EuroExchange, DkkExchange, JpyExchange, NokExchange,
+            GbpExchange, SekExchange, AudExchange, CadExchange,CnyExchange;
 }
