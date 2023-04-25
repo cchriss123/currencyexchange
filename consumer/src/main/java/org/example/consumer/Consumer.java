@@ -17,7 +17,6 @@ public class Consumer {
         populateLoadMap(loaderMap, loader);
 
 
-
         System.out.println("\nWelcome to my currency price service!\n");
 
         System.out.println("Enter your currency code.");
