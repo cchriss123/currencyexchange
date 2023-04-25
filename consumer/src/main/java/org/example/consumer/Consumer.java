@@ -23,9 +23,8 @@ public class Consumer {
 
         System.out.println("\nWelcome to my currency price service!\n");
 
+        System.out.println("Pick your currency code.");
         System.out.println(currencyCodes);
-
-        System.out.println("\nPick your currency code.");
         String fromCurrency = scanner.nextLine().trim().toUpperCase();
         if(!currencyCodes.contains(fromCurrency)) {
             System.out.println(fromCurrency + " is not available. Currency code is set to SEK.");
