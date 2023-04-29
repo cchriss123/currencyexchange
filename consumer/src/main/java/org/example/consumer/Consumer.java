@@ -15,21 +15,22 @@ public class Consumer {
         ServiceLoader<CurrencyExchangeService> loader = ServiceLoader.load(CurrencyExchangeService.class);
 
         populateLoadMap(loaderMap, loader);
-
+        List<String> sortedCurrencyCodes = new ArrayList<>(loaderMap.keySet());
+        Collections.sort(sortedCurrencyCodes);
 
         System.out.println("\nWelcome to my currency price service!\n");
 
         System.out.println("Enter your currency code.");
-        System.out.println(loaderMap.keySet());
+        System.out.println(sortedCurrencyCodes);
         String fromCurrency = scanner.nextLine().trim().toUpperCase();
         if(!loaderMap.containsKey(fromCurrency)) {
             System.out.println(fromCurrency + " is not available. Currency code is set to SEK.");
-            fromCurrency = "SEK.";
+            fromCurrency = "SEK";
         }
 
 
         System.out.println("Enter the currency code to see currency prices for " + fromCurrency);
-        System.out.println(loaderMap.keySet());
+        System.out.println(sortedCurrencyCodes);
         String toCurrency = "";
         while (!loaderMap.containsKey(toCurrency)) {
             toCurrency = scanner.nextLine().trim().toUpperCase();

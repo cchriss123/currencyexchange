@@ -6,8 +6,6 @@ V
 :
 
 .gitignore,a/5/a5cc2925ca8258af241be7e5b0381edf30266302
-7
-pom.xml,4/4/442292b8a7efeabbe4cc176709b833b1792140ec
 }
 Mprovider/src/main/java/org/example/provider/currencyexchange/NokExchange.java,d/f/df11c1ba005619d00a315b6bdddcb0d07588f51e
 v
@@ -22,3 +20,5 @@ W
 'consumer/src/main/java/module-info.java,4/f/4fee7a2f1b9e2ac3828fddf5b39a877b3e794f56
 }
 Mprovider/src/main/java/org/example/provider/currencyexchange/GbpExchange.java,9/7/9796dd7578b8e12981578d176badb312a1561f2a
+}
+Mprovider/src/main/java/org/example/provider/currencyexchange/CnyExchange.java,7/9/7915866e3a5634ecaf9378a694f6072c0cbc1c4b
